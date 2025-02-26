@@ -36,31 +36,21 @@ app.get("/", (req, res) => {
   res.send("hi this is root route ");
 });
 
-// index route :- it show our listing on frontend
 app.get("/listings", async (req, res) => {
   const allListings = await Listing.find({});
   res.render("./listings/index.ejs", { allListings });
 });
 
-// app.get("/listings", async (req, res) => {
-//   const allListings = await Listing.find({});
-//   console.log(allListings);
-//   res.render("./listings/index.ejs", { allListings });
-// });
-
-// new route :- this show a form by these we add new list
 app.get("/listings/new", (req, res) => {
   res.render("./listings/new.ejs");
 });
 
-// show route :- this route show details of particular list
 app.get("/listings/:id", async (req, res) => {
   const { id } = req.params;
   const listings = await Listing.findById(id);
   res.render("./listings/show.ejs", { listings });
 });
 
-// create route
 app.post("/listings", async (req, res) => {
   // app.post pe request aayegi
   // const { title, description, image, price, location, country } = req.body;
@@ -70,7 +60,6 @@ app.post("/listings", async (req, res) => {
   res.redirect("/listings");
 });
 
-// edit route
 app.get("/listings/:id/edit", async (req, res) => {
   const { id } = req.params;
   const listings = await Listing.findById(id);
@@ -84,22 +73,6 @@ app.put("/listings/:id", async (req, res) => {
   res.redirect(`/listings/${id}`);
 });
 
-// update route
-// app.put("/listings/:id", async (req, res) => {
-//   let { id } = req.params;
-//   console.log(req.body.listing);
-//   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-//   res.redirect(`/listings/${id}`);
-// });
-
-// update route
-// app.put("/listings/:id", async (req, res) => {
-//   let { id } = req.params;
-//   console.log(req.body.listing);
-//   let newl = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-//   console.log(newl);
-//   res.redirect(`/listings/${id}`);
-// });
 
 // delete route
 app.delete("/listings/:id", async (req, res) => {
